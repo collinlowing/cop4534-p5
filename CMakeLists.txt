@@ -4,7 +4,7 @@ project(cop4534_p5)
 set(CMAKE_CXX_STANDARD 14)
 
 add_executable(cop4534_p5 main.cpp
-        FileParser.cpp FileParser.hpp)
+        FileParser.cpp FileParser.hpp TwoStringLCS.cpp TwoStringLCS.hpp MultiStringLCS.cpp MultiStringLCS.hpp)
 
 file(COPY multiStrings.txt
         DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
