@@ -6,8 +6,16 @@
 #define COP4534_P5_TWOSTRINGLCS_HPP
 
 
-class TwoStringLCS {
+#include <string>
 
+class TwoStringLCS {
+private:
+    char** stringCombination;
+    char* stringX;
+    char* stringY;
+public:
+    void printLCS(int i, int j);
+    void generateCombinationString(std::string stringX, std::string stringY);
 };
 
 
