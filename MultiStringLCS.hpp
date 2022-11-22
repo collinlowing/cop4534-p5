@@ -10,12 +10,14 @@
 class MultiStringLCS {
 private:
     char** similarityTable;
-    char** stringTable;
+    const char** stringTable;
     int* stringLengths;
     int numberOfStrings;
 public:
+    MultiStringLCS(const std::vector<std::string>& strings);
     char getSimilarity(char* stringX, char* stringY);
     void printSimilarityTable();
+    ~MultiStringLCS();
 };
 
 
