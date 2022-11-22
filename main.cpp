@@ -7,12 +7,12 @@ int main() {
 
     std::string stringX = fileStrings[0];
     std::string stringY = fileStrings[1];
-    int m = stringX.size();
-    int n = stringY.size();
+    int m = stringX.size() + 1;
+    int n = stringY.size() + 1;
     TwoStringLCS ts(stringX.c_str(), stringY.c_str(), m, n);
 
     ts.generateCombinationString();
-    ts.printLCS(m, n);
+    ts.printLCS(m - 1, n - 1);
 
     return 0;
 }
