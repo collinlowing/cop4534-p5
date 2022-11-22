@@ -10,12 +10,19 @@
 
 class TwoStringLCS {
 private:
-    char** stringCombination;
-    char* stringX;
-    char* stringY;
+    int** stringCombination;
+    const char* stringX;
+    const char* stringY;
+    int m;
+    int n;
 public:
+    TwoStringLCS(const char* stringX, const char* stringY, int m, int n);
     void printLCS(int i, int j);
-    void generateCombinationString(std::string stringX, std::string stringY);
+    void generateCombinationString();
+    int **getStringCombination() const;
+    const char *getStringX() const;
+    const char *getStringY() const;
+    void print();
 };
 
 

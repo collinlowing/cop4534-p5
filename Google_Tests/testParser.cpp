@@ -6,7 +6,7 @@
 TEST(ParserTest, GetItems) {
     std::vector<std::string> fileStrings = FileParser::getItemsFromFile("testTwoStrings.txt");
 
-    ASSERT_TRUE(fileStrings.size() > 0);
+    ASSERT_TRUE(!fileStrings.empty());
 
     std::vector<std::string> strings = {
         "asdfgh",
