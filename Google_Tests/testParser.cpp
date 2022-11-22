@@ -10,7 +10,7 @@ TEST(ParserTest, GetItems) {
 
     std::vector<std::string> strings = {
         "asdfgh",
-        "qwerewtdsfdsfa"
+        "qwewrasd"
     };
 
     for(int i = 0; i < fileStrings.size(); i++) {

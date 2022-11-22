@@ -22,8 +22,8 @@ TwoStringLCS::TwoStringLCS(const char* stringX, const char* stringY, int m, int 
         stringCombination[i] = new int[n];
     }
 
-    for(int i; i < m; i++) {
-        for(int j; j < n; j++) {
+    for(int i = 0; i < m; i++) {
+        for(int j = 0; j < n; j++) {
             stringCombination[i][j] = 0;
         }
     }
@@ -36,9 +36,10 @@ void TwoStringLCS::printLCS(int i, int j) {
     }
     if(stringX[i] == stringY[j]) {
         printLCS(i-1,j-1);
-        printf("%c\n", stringX[i]);
+        printf("%c\n", stringX[i-1]); // I changed stringX[i]
     }
-    else if(stringCombination[i-1][j] >= stringCombination[i][j-1]){ // TODO: is not true when should be
+    else if(stringCombination[i-1][j] >= stringCombination[i][j-1]) { // TODO: is not true when should be
+
         printLCS(i-1, j);
     }
     else {
