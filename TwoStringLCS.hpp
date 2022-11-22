@@ -15,6 +15,10 @@ private:
     const char* stringY;
     int m;
     int n;
+    int lengthOfSubstring = 0;
+public:
+    int getLengthOfSubstring() const;
+
 public:
     TwoStringLCS(const char* stringX, const char* stringY, int m, int n);
     void printLCS(int i, int j);

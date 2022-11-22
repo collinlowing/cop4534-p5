@@ -13,6 +13,7 @@ int main() {
 
     ts.generateCombinationString();
     ts.printLCS(m - 1, n - 1);
+    std::cout << std::endl << "Length of LCS: " << ts.getLengthOfSubstring() << std::endl;
 
     return 0;
 }

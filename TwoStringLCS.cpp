@@ -36,7 +36,8 @@ void TwoStringLCS::printLCS(int i, int j) {
     }
     if(stringX[i] == stringY[j]) {
         printLCS(i-1,j-1);
-        printf("%c\n", stringX[i-1]); // I changed stringX[i]
+        lengthOfSubstring++;
+        printf("%c", stringX[i-1]); // I changed stringX[i]
     }
     else if(stringCombination[i-1][j] >= stringCombination[i][j-1]) {
 
@@ -85,4 +86,8 @@ void TwoStringLCS::print() {
         }
         std::cout << std::endl;
     }
+}
+
+int TwoStringLCS::getLengthOfSubstring() const {
+    return lengthOfSubstring;
 }
