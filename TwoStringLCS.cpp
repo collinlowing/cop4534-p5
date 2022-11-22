@@ -38,7 +38,7 @@ void TwoStringLCS::printLCS(int i, int j) {
         printLCS(i-1,j-1);
         printf("%c\n", stringX[i-1]); // I changed stringX[i]
     }
-    else if(stringCombination[i-1][j] >= stringCombination[i][j-1]) { // TODO: is not true when should be
+    else if(stringCombination[i-1][j] >= stringCombination[i][j-1]) {
 
         printLCS(i-1, j);
     }
