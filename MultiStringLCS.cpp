@@ -31,33 +31,102 @@ MultiStringLCS::MultiStringLCS(const std::vector<std::string>& strings) {
     }
 }
 
-char MultiStringLCS::getSimilarity(char *stringX, char *stringY) {
-    return 0;
+char MultiStringLCS::getSimilarity(int stringIndex1, int stringIndex2) {
+    // declare and initialize variables
+    int smallestLength;
+    int largestLength;
+    int lengthLCS = 0;
+    char similarityLabel;
+
+    // get sizes of strings
+    int lengthOfString1 = stringLengths[stringIndex1];
+    int lengthOfString2 = stringLengths[stringIndex2];
+
+    // get smallest length
+    if(lengthOfString1 <= lengthOfString2) {
+        smallestLength = lengthOfString1;
+        largestLength = lengthOfString2;
+    }
+    else {
+        smallestLength = stringIndex2;
+        largestLength = stringIndex1;
+    }
+
+    // get LCS for two strings
+    lengthLCS = getLCS(stringIndex1, stringIndex2);
+
+    double sizePercentage = (double) smallestLength/largestLength;
+    double lcsPercentage = (double) lengthLCS/smallestLength;
+
+    // get similarity labels
+    // high similarity if 10% of length and 90% of smallest length and LCS length
+    if(sizePercentage <= .10 && lcsPercentage >= .90) {
+        similarityLabel = 'H';
+    }
+    // low similarity if 20% of length and 80% of smallest length and LCS length
+    else if(sizePercentage <= .20 && lcsPercentage >= .80) {
+        similarityLabel = 'M';
+    }
+    // low similarity if 40% of length and 50% of smallest length and LCS length
+    else if(sizePercentage <= .40 && lcsPercentage >= .50) {
+        similarityLabel = 'L';
+    }
+    // otherwise dissimilar
+    else {
+        similarityLabel = 'D';
+    }
+
+    // set label to table
+    similarityTable[stringIndex1][stringIndex2] = similarityLabel;
+
+    return similarityLabel;
 }
 
 void MultiStringLCS::printSimilarityTable() {
-    for(int i = 0; i < numberOfStrings; i++) {
+    for(int i = 1; i <= numberOfStrings; i++) {
+        if(i == 1) {
+            std::cout << "\t";
+        }
         if(i <= 9) {
-            std::cout << "0" << i << " ";
+            std::cout << "0" << i << "\t";
         }
         else { // greater than 9 so do not add 0 to beginning
-            std::cout << i << " ";
+            std::cout << i << "\t";
         }
     }
 
     std::cout << std::endl;
 
-    for(int m = 0; m < numberOfStrings; m++) {
+    for(int m = 1; m <= numberOfStrings; m++) {
         if(m <= 9) {
-            std::cout << "0" << m << " ";
+            std::cout << "0" << m << "\t";
         }
         else { // greater than 9 so do not add 0 to beginning
-            std::cout << m << " ";
+            std::cout << m << "\t";
         }
-        for(int n = 0; n < numberOfStrings; n++) {
-            std::cout << similarityTable[m][n] << " ";
+        for(int n = 1; n <= numberOfStrings; n++) {
+            std::cout << similarityTable[m-1][n-1] << "\t";
         }
         std::cout << std::endl;
+    }
+}
+
+int MultiStringLCS::getLCS(int stringIndex1, int stringIndex2) {
+    return 0;
+}
+
+void MultiStringLCS::fillSimilarityTable() {
+    int counter = 0;
+    for(int i = 0; i < numberOfStrings; i++) {
+        for(int j = 0; j < numberOfStrings; j++) {
+            if(j <= counter) {
+                similarityTable[i][j] = '-';
+            }
+            else {
+                getSimilarity(i, j);
+            }
+        }
+        counter++;
     }
 }
 
@@ -67,12 +136,29 @@ MultiStringLCS::~MultiStringLCS() {
     }
     delete[] similarityTable;
 
+/*
     for(int i = 0; i < numberOfStrings; i++) {
         delete stringTable[i];
     }
+*/
     delete[] stringTable;
 
     delete [] stringLengths;
 }
 
+char **MultiStringLCS::getSimilarityTable() const {
+    return similarityTable;
+}
+
+const char **MultiStringLCS::getStringTable() const {
+    return stringTable;
+}
+
+int *MultiStringLCS::getStringLengths() const {
+    return stringLengths;
+}
+
+int MultiStringLCS::getNumberOfStrings() const {
+    return numberOfStrings;
+}
 

@@ -17,6 +17,6 @@ file(COPY multiStrings.txt
 add_executable(Google_Tests_run
         ../FileParser.hpp ../FileParser.cpp testParser.cpp
         ../TwoStringLCS.cpp ../TwoStringLCS.hpp testTwoStringLCS.cpp
-        ../MultiStringLCS.cpp ../MultiStringLCS.hpp)
+        ../MultiStringLCS.cpp ../MultiStringLCS.hpp testMultiStringLCS.cpp)
 add_executable(daDemo2 daDemo2.cpp)
 target_link_libraries(Google_Tests_run gtest gtest_main gmock gmock_main)

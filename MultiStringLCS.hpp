@@ -14,10 +14,17 @@ private:
     int* stringLengths;
     int numberOfStrings;
 public:
+
     MultiStringLCS(const std::vector<std::string>& strings);
-    char getSimilarity(char* stringX, char* stringY);
+    char getSimilarity(int stringIndex1, int stringIndex2);
     void printSimilarityTable();
+    int getLCS(int stringIndex1, int stringIndex2);
+    void fillSimilarityTable();
     ~MultiStringLCS();
+    int getNumberOfStrings() const;
+    int *getStringLengths() const;
+    const char **getStringTable() const;
+    char **getSimilarityTable() const;
 };
 
 
