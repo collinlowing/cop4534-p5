@@ -37,7 +37,7 @@ void TwoStringLCS::printLCS(int i, int j) {
     if(stringX[i] == stringY[j]) {
         printLCS(i-1,j-1);
         lengthOfSubstring++;
-        printf("%c", stringX[i-1]); // I changed stringX[i]
+        printf("%c", stringX[i-1]);
     }
     else if(stringCombination[i-1][j] >= stringCombination[i][j-1]) {
 
@@ -80,8 +80,8 @@ const char *TwoStringLCS::getStringY() const {
 
 void TwoStringLCS::print() {
     // print combination
-    for(int i; i < m; i++) {
-        for(int j; j < n; j++) {
+    for(int i = 0; i < m; i++) {
+        for(int j = 0; j < n; j++) {
             std::cout << stringCombination[i][j] << " ";
         }
         std::cout << std::endl;

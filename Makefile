@@ -1,7 +1,7 @@
 CXX = g++
 CXXFLAGS = -std=c++11 -Wall -ftest-coverage -fprofile-arcs -pthread
 
-OBJECTS =
+OBJECTS = FileParser.o MultiStringLCS.o TwoStringLCS.o
 
 
 main: main.o $(OBJECTS)

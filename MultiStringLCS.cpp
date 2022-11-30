@@ -29,13 +29,26 @@ MultiStringLCS::MultiStringLCS(const std::vector<std::string>& strings) {
         stringLengths[i] = strings[i+1].size();
         stringTable[i] = strings[i+1].c_str();
     }
+
+    // declaring array of pointers for size of stringX
+    stringCombination = new int*[m];
+
+    for(int i = 0; i < m; i++) {
+        // declaring memory for size of stringY
+        stringCombination[i] = new int[n];
+    }
+
+    for(int i = 0; i < m; i++) {
+        for(int j = 0; j < n; j++) {
+            stringCombination[i][j] = 0;
+        }
+    }
 }
 
 char MultiStringLCS::getSimilarity(int stringIndex1, int stringIndex2) {
     // declare and initialize variables
     int smallestLength;
     int largestLength;
-    int lengthLCS = 0;
     char similarityLabel;
 
     // get sizes of strings
@@ -48,15 +61,24 @@ char MultiStringLCS::getSimilarity(int stringIndex1, int stringIndex2) {
         largestLength = lengthOfString2;
     }
     else {
-        smallestLength = stringIndex2;
-        largestLength = stringIndex1;
+        smallestLength = lengthOfString2;
+        largestLength = lengthOfString1;
     }
 
+    generateCombinationString(stringIndex1, stringIndex2);
     // get LCS for two strings
-    lengthLCS = getLCS(stringIndex1, stringIndex2);
+    getLCS(stringIndex1, stringIndex2, lengthOfString1, lengthOfString2);
 
     double sizePercentage = (double) smallestLength/largestLength;
-    double lcsPercentage = (double) lengthLCS/smallestLength;
+    double lcsPercentage = (double) lengthOfLCS/smallestLength;
+
+    // reset LCS
+    lengthOfLCS = 0;
+    for(int i = 0; i < m; i++) {
+        for(int j = 0; j < n; j++) {
+            stringCombination[i][j] = 0;
+        }
+    }
 
     // get similarity labels
     // high similarity if 10% of length and 90% of smallest length and LCS length
@@ -97,22 +119,56 @@ void MultiStringLCS::printSimilarityTable() {
 
     std::cout << std::endl;
 
-    for(int m = 1; m <= numberOfStrings; m++) {
-        if(m <= 9) {
-            std::cout << "0" << m << "\t";
+    for(int i = 1; i <= numberOfStrings; i++) {
+        if(i <= 9) {
+            std::cout << "0" << i << "\t";
         }
         else { // greater than 9 so do not add 0 to beginning
-            std::cout << m << "\t";
+            std::cout << i << "\t";
         }
-        for(int n = 1; n <= numberOfStrings; n++) {
-            std::cout << similarityTable[m-1][n-1] << "\t";
+        for(int j = 1; j <= numberOfStrings; j++) {
+            std::cout << similarityTable[i-1][j-1] << "\t";
         }
         std::cout << std::endl;
     }
 }
 
-int MultiStringLCS::getLCS(int stringIndex1, int stringIndex2) {
-    return 0;
+void MultiStringLCS::generateCombinationString(int index1, int index2) {
+    int length1 = stringLengths[index1] + 1;
+    int length2 = stringLengths[index2] + 1;
+    for(int i = 1; i < length1; i++) {
+        for(int j = 1; j < length2; j++) {
+            if(stringTable[index1][i] == stringTable[index2][j]) {
+                stringCombination[i][j] = stringCombination[i-1][j-1] + 1;
+            }
+            else {
+                if(stringCombination[i-1][j] >= stringCombination[i][j-1]) {
+                    stringCombination[i][j] = stringCombination[i-1][j];
+                }
+                else {
+                    stringCombination[i][j] = stringCombination[i][j-1];
+                }
+            }
+        }
+    }
+}
+
+void MultiStringLCS::getLCS(int index1, int index2, int i, int j) {
+    // stopping condition
+    if(i == 0 || j == 0) {
+        return;
+    }
+    if(stringTable[index1][i] == stringTable[index2][j]) {
+        getLCS(index1, index2, i-1,j-1);
+        lengthOfLCS++;
+    }
+    else if(stringCombination[i-1][j] >= stringCombination[i][j-1]) {
+
+        getLCS(index1, index2, i-1, j);
+    }
+    else {
+        getLCS(index1, index2, i, j-1);
+    }
 }
 
 void MultiStringLCS::fillSimilarityTable() {
