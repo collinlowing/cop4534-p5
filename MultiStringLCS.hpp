@@ -15,8 +15,7 @@ private:
     int numberOfStrings;
     int lengthOfLCS = 0;
     int** stringCombination;
-    int m = 64;
-    int n = 64;
+    int MAX_LENGTH = 64; // expected maximum length of any string
 public:
 
     MultiStringLCS(const std::vector<std::string>& strings);
@@ -26,10 +25,6 @@ public:
     void getLCS(int index1, int index2, int i, int j);
     void fillSimilarityTable();
     ~MultiStringLCS();
-    int getNumberOfStrings() const;
-    int *getStringLengths() const;
-    const char **getStringTable() const;
-    char **getSimilarityTable() const;
 };
 
 

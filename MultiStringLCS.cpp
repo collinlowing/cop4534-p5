@@ -3,6 +3,7 @@
 //
 
 #include <vector>
+#include <cmath>
 #include "MultiStringLCS.hpp"
 
 MultiStringLCS::MultiStringLCS(const std::vector<std::string>& strings) {
@@ -31,15 +32,15 @@ MultiStringLCS::MultiStringLCS(const std::vector<std::string>& strings) {
     }
 
     // declaring array of pointers for size of stringX
-    stringCombination = new int*[m];
+    stringCombination = new int*[MAX_LENGTH];
 
-    for(int i = 0; i < m; i++) {
+    for(int i = 0; i < MAX_LENGTH; i++) {
         // declaring memory for size of stringY
-        stringCombination[i] = new int[n];
+        stringCombination[i] = new int[MAX_LENGTH];
     }
 
-    for(int i = 0; i < m; i++) {
-        for(int j = 0; j < n; j++) {
+    for(int i = 0; i < MAX_LENGTH; i++) {
+        for(int j = 0; j < MAX_LENGTH; j++) {
             stringCombination[i][j] = 0;
         }
     }
@@ -69,13 +70,27 @@ char MultiStringLCS::getSimilarity(int stringIndex1, int stringIndex2) {
     // get LCS for two strings
     getLCS(stringIndex1, stringIndex2, lengthOfString1, lengthOfString2);
 
-    double sizePercentage = (double) smallestLength/largestLength;
-    double lcsPercentage = (double) lengthOfLCS/smallestLength;
+    // calculate percentages
+    // declare variables;
+    double sizeDifference;
+    double sizeAverage;
+    double sizePercentage;
+    double lcsPercentage;
+
+    // get percent difference of the two string lengths
+    sizeDifference = std::abs((double) largestLength - smallestLength);
+    sizeAverage = (double) (largestLength + smallestLength) / 2.0;
+    sizePercentage = sizeDifference / sizeAverage;
+
+    // get percent difference of the lengths for the smallest string and LCS
+    sizeDifference = std::abs((double) smallestLength - lengthOfLCS);
+    sizeAverage = (double) (smallestLength + lengthOfLCS) / 2.0;
+    lcsPercentage = 1.00 - (sizeDifference / sizeAverage); // if percent difference is 0% then it is 100% similar
 
     // reset LCS
     lengthOfLCS = 0;
-    for(int i = 0; i < m; i++) {
-        for(int j = 0; j < n; j++) {
+    for(int i = 0; i < MAX_LENGTH; i++) {
+        for(int j = 0; j < MAX_LENGTH; j++) {
             stringCombination[i][j] = 0;
         }
     }
@@ -192,29 +207,16 @@ MultiStringLCS::~MultiStringLCS() {
     }
     delete[] similarityTable;
 
-/*
-    for(int i = 0; i < numberOfStrings; i++) {
+    // causes a free(): invalid size error... might have to do with const char?
+   /* for(int i = 0; i < numberOfStrings; i++) {
         delete stringTable[i];
-    }
-*/
+    }*/
     delete[] stringTable;
+
+    for(int i = 0; i < MAX_LENGTH; i++) {
+        delete stringCombination[i];
+    }
+    delete [] stringCombination;
 
     delete [] stringLengths;
 }
-
-char **MultiStringLCS::getSimilarityTable() const {
-    return similarityTable;
-}
-
-const char **MultiStringLCS::getStringTable() const {
-    return stringTable;
-}
-
-int *MultiStringLCS::getStringLengths() const {
-    return stringLengths;
-}
-
-int MultiStringLCS::getNumberOfStrings() const {
-    return numberOfStrings;
-}
-
