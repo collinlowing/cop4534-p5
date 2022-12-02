@@ -1,3 +1,10 @@
+/***************************************************************
+  Student Name: Collin Lowing
+  File Name: FileParser.cpp
+  Project 5
+
+  gets strings from files
+***************************************************************/
 
 #include "FileParser.hpp"
 
