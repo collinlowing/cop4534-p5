@@ -28,15 +28,11 @@ public:
 
     void generateCombinationString();
 
-    int **getStringCombination() const;
-
-    const char *getStringX() const;
-
-    const char *getStringY() const;
-
     void print();
 
-    int getLengthOfSubstring() const;
+    int getLengthOfSubstring() {
+        return lengthOfSubstring;
+    }
 
     ~TwoStringLCS();
 };

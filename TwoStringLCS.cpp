@@ -64,18 +64,7 @@ void TwoStringLCS::generateCombinationString() {
     }
 }
 
-int **TwoStringLCS::getStringCombination() const {
-    return stringCombination;
-}
-
-const char *TwoStringLCS::getStringX() const {
-    return stringX;
-}
-
-const char *TwoStringLCS::getStringY() const {
-    return stringY;
-}
-
+/* used for testing
 void TwoStringLCS::print() {
     // print combination
     for (int i = 0; i < m; i++) {
@@ -85,10 +74,7 @@ void TwoStringLCS::print() {
         std::cout << std::endl;
     }
 }
-
-int TwoStringLCS::getLengthOfSubstring() const {
-    return lengthOfSubstring;
-}
+*/
 
 TwoStringLCS::~TwoStringLCS() {
     for (int i = 0; i < m; i++) {
